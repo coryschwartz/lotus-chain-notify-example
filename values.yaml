@@ -1,0 +1,50 @@
+# Values file for lotus bundle
+
+# This is the image and repo of *YOUR* application.
+image:
+  repository: coryschwartz/lotus-chain-notify-example
+  tag: latest
+  pullPolicy: Always
+
+# Describe the way your container is run.
+# For details about what options are available, check out
+# the lotus-bundle values file
+application:
+  name: "example"
+  labels: []
+  replicas: 
+  container:
+    name: application
+    command: []
+    args: []
+    env: []
+    resources: {}
+    ports:
+      - containerPort: 8080
+        name: http
+  secrets: []
+  configMaps: [] # same format as secrets
+  service:
+    enabled: true
+    type: ClusterIP
+    ports:
+      - protocol: TCP
+        port: 8080
+        targetPort: 8080
+        name: http
+  storage: []
+
+
+# Configure how lotus should be run.
+# Use this stanza to configure whether
+# lotus should use a lite daemon
+# and if running a lite mode, what should
+# be used as the backend.
+lotus:
+  enabled: true
+  image: filecoin/lotus:nightly
+  imagePullPolicy: Always
+  lite:
+    enabled: false
+    backend: wss://api.chain.love
+  jaeger: false

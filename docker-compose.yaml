@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  lotus-chain-notify:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+    environment:
+      - FULLNODE_API_INFO=/dns/lotus-fullnode/tcp/1234
+  lotus-fullnode:
+    image: filecoin/lotus:nightly
+    environment:
+      - FULLNODE_API_INFO=wss://api.chain.love
+    command:
+      - daemon
+      - --lite
